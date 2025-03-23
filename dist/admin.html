@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechieSport--home</title>
+    <link rel="stylesheet" href="style.css">  <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <style>
+        .navbar a{
+         text-decoration: none;
+          color: #d8ffe0;
+          padding-right: 2%;
+        }
+        
+#features {
+    padding: 2rem;
+    text-align: center;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature {
+    padding: 1.5rem;
+    background-color: rgb(214, 243, 253);
+    border-radius: 0.5rem;
+    box-shadow: 0 0px 10px rgba(7, 7, 245, 0.1);
+    text-decoration: none;
+    color: var(--secondary);
+}
+
+.feature img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+    object-fit: contain;
+}
+
+.feature h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* From Uiverse.io by Admin12121 */ 
+.button,
+.input,
+.select,
+.textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.modal-container {
+  max-height: 70%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+  .modal-container {
+    width: 90%;
+  }
+}
+
+footer {
+  background-color: #d8ffe0 ; /* Dark background color */
+  color: var(--primary); /* Light text color */
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5; 
+}
+
+footer a {
+  color: var(--primary); /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Style for the container */
+.footer-container {
+  max-width: 960px; /* Match the width of your main content */
+  margin: 0 auto; /* Center the footer content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally within the container */
+}
+.navbar a{
+    text-decoration: none;
+    color: #d8ffe0;
+    padding-right: 2%;
+}
+
+/* Social Icons (Example) */
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 20px; /* Adjust size as needed */
+  color: var(--primary); /* Icon color */
+}
+
+.social-icons a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+/* Copyright Notice */
+.copyright {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+    </style>
+
+    <div class="navbar">
+        <div >TechieSport</div>
+        <a href="ndex1.html"><i class="fas fa-dashboard"></i> Dashboard</a>
+    </div>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="ndex1.html"><i class="fas fa-dashboard"></i> Dashboard</a></li> <br>
+            <li><a href="schedule.html"><i class="fas fa-users"></i> schedule Management</a></li>
+            <li><a href="admin.html"><i class="fas fa-users-cog"></i>  Admin</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="cardl">
+            <h2 style="text-align: center;">Welcome to TechieSport</h2>
+            <button onclick="history.back()" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-arrow-left"></i> Back</button>
+            <section id="features">
+                <div class="features-grid">
+                    <a href="register.html" class="feature">
+                      <h3>Register New Team</h3>
+                        <img src="pngimg.com - football_PNG52750.png" alt=" Management">
+                        <div>TechieSport</div>
+                    </a>
+                    <a href="eventregst.html" class="feature">
+                      <h3>Schedule Management</h3>
+                        <img src="pngwing.com (16).png" alt="Schedule Management">
+                    </a>
+                    <a href="players.html" class="feature">
+                      <h3>Player Management</h3>
+                        <img src="pngwing.com (90).png" alt="Player Management">                      
+                    </a>
+                    <a href="staff.html" class="feature">
+                      <h3>Staff Management</h3>
+                        <img src="pngwing.com (38).png" alt="Staff Management">
+                    </a>
+                </div>
+            </section>
+            <footer>
+                <div class="footer-container">
+                  <p>
+                    &copy; 2025 TechieSport. All rights reserved. |
+                    <a href="/privacy">Privacy Policy</a> |
+                    <a href="/terms">Terms of Service</a>
+                  </p>
+            
+                  <div class="social-icons">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                  </div>
+            
+                  <p class="copyright">
+                      Website designed and developed by Dezmils.
+                  </p>
+                </div>
+              </footer>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #app {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        
+    </style>
+    <div id="app">
+        <h2>Team Registration Form</h2>
+        <form id="team-registration-form">
+            <label for="team_name">Team Name:</label>
+            <input type="text" id="team_name" name="team_name" required><br><br>
+
+            <label for="sport">Sport:</label>
+            <input type="text" id="sport" name="sport" required><br><br>
+
+            <label for="league">League:</label>
+            <input type="text" id="league" name="league" required><br><br>
+
+            <label for="coach">Coach:</label>
+            <input type="text" id="coach" name="coach" required><br><br>
+            <a href="ndex1.html">back</a>
+  
+            <button type="submit">Register Team</button>
+        </form>
+    </div>
+
+    <script >
+
+document.addEventListener('DOMContentLoaded', function() { // Ensure DOM is fully loaded
+    const registrationForm = document.getElementById('team-registration-form');
+
+    registrationForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(registrationForm);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('register_team.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Team registered successfully!');
+                registrationForm.reset(); // Clear the form
+            } else {
+                alert('Registration failed: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration.');
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const registrationButton = document.getElementById('registration-button'); // Updated to button
+    const registrationCard = document.getElementById('registration-card');
+    const registrationForm = document.getElementById('team-registration-form');
+
+    registrationButton.addEventListener('click', function(event) {  // Updated to button
+        // Toggle the visibility of the registration card
+        if (registrationCard.style.display === 'none') {
+            registrationCard.style.display = 'block';
+        } else {
+            registrationCard.style.display = 'none';
+        }
+    });
+
+    registrationForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(registrationForm);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('register_team.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Team registered successfully!');
+                registrationForm.reset(); // Clear the form
+                registrationCard.style.display = 'none'; // Hide form after submission
+            } else {
+                alert('Registration failed: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration.');
+        }
+    });
+});
+
+    </script>
+</body>
+</html>

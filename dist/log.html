@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+#app {
+    width: 500px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Add more styles as needed */
+
+    </style>
+    <div id="app">
+        <!-- Content will be dynamically loaded here by JavaScript -->
+    </div>
+
+    <script>
+        const appDiv = document.getElementById('app');
+
+// Function to check if the user is authenticated (simplified)
+function isAuthenticated() {
+    return localStorage.getItem('token') !== null; // Check if a token exists
+}
+
+// Function to render the login form
+function renderLoginForm() {
+    appDiv.innerHTML = `
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+    `;
+
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                localStorage.setItem('token', result.token); // Store the token
+                renderDashboard();
+            } else {
+                alert('Login failed: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during login.');
+        }
+    });
+}
+
+// Function to render the registration form
+function renderRegistrationForm() {
+    appDiv.innerHTML = `
+        <h2>Register</h2>
+        <form id="register-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Register</button>
+        </form>
+    `;
+
+    document.getElementById('register-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('register.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Registration successful! Please login.');
+                renderLoginForm();
+            } else {
+                alert('Registration failed: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration.');
+        }
+    });
+}
+
+// Function to render the dashboard (protected content)
+async function renderDashboard() {
+    if (!isAuthenticated()) {
+        renderLoginForm(); // Redirect to login if not authenticated
+        return;
+    }
+
+    try {
+        const response = await fetch('protected.php', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            appDiv.innerHTML = `
+                <h2>Dashboard</h2>
+                <p>Welcome, ${result.username}!</p>
+                <button id="logout-button">Logout</button>
+            `;
+            document.getElementById('logout-button').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                renderLoginForm();
+            });
+        } else {
+            alert('Failed to load dashboard: ' + result.message);
+            localStorage.removeItem('token');
+            renderLoginForm();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while loading the dashboard.');
+        localStorage.removeItem('token');
+        renderLoginForm();
+    }
+}
+// Initial render
+if (isAuthenticated()) {
+    renderDashboard();
+} else {
+    appDiv.innerHTML = '<button id="register-button">Register</button> or <button id="login-button">Login</button>';
+    document.getElementById('register-button').addEventListener('click', renderRegistrationForm);
+    document.getElementById('login-button').addEventListener('click', renderLoginForm);
+}
+
+    </script>
+</body>
+</html>

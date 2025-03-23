@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TechieSport--team page</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+ 
+
+        #teamTable {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        #teamTable th, #teamTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: ce;
+        }
+
+        #teamTable th {
+            background-color: var(--background);
+        }
+      
+        .team-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        /* Footer Styles */
+footer {
+  background-color: #d8ffe0 ; /* Dark background color */
+  color: var(--primary); /* Light text color */
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5; 
+}
+
+footer a {
+  color: var(--primary); /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Style for the container */
+.footer-container {
+  max-width: 960px; /* Match the width of your main content */
+  margin: 0 auto; /* Center the footer content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally within the container */
+}
+.navbar a{
+    text-decoration: none;
+    color: #d8ffe0;
+    padding-right: 2%;
+}
+
+/* Social Icons (Example) */
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 20px; /* Adjust size as needed */
+  color: var(--primary); /* Icon color */
+}
+
+.social-icons a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+/* Copyright Notice */
+.copyright {
+  margin-top: 10px;
+  font-size: 12px;
+}
+    </style>
+</head>
+<body>
+
+    
+    <div class="navbar">
+        <div>TechieSport</div>
+        <a href="ndex1.html"><i class="fas fa-dashboard"></i> Dashboard</a>
+    </div>
+    
+    
+    <div class="sidebar">
+       <h4 style="color: #030148;">Sport Type</h4>
+        <ul>
+            <li><a href="" data-sport="football"><i class="fas fa-soccer-ball"></i> Football</a></li>
+            <li><a href="#" data-sport="basketball"> <i class="fas fa-basketball-ball"></i>Basketball</a></li>
+            <li><a href="#" data-sport="RollBall"><i class="fas fa-skating"></i>RollBall</a></li>
+            <li><a href="#" data-sport="Netball"><i class="fas fa-basketball-ball"></i>Netball</a></li> 
+            <li><a href="#" data-sport="Volleyball"><i class="fas fa-volleyball-ball"></i>Volleyball</a></li>
+            <li><a href="#" data-sport="Tennis"><i class="fas fa-table-tennis-paddle-ball"></i>Tennis</a></li>
+            <li><a href="#" data-sport="Badminton"><i class="fas fa-feather"></i>Badminton</a></li>
+            <li><a href="#" data-sport="Hockey"><i class="fas fa-hockey-puck"></i>Hockey</a></li> <li>
+            <a href="#" data-sport="Taekwondo"><i class="fas fa-user-ninja"></i>Taekwondo</a></li>
+            <li><a href="#" data-sport="Chess"><i class="fas fa-chess"></i>Chess</a></li>
+            
+        </ul>
+    </div>
+   
+    <div class="content">
+        <div class="card">
+            <button onclick="history.back()" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-arrow-left"></i> Back</button>
+        <h1 style="text-align: center;">Football Teams</h1>  <!-- This will be dynamically updated -->
+        <table id="teamTable">
+            <thead>
+                <tr>
+                    <th>Team Name</th>
+                    <th>League</th>
+                    <th>Coach</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Team data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    
+    </div>
+    
+    
+    <footer>
+        <div class="footer-container">
+          <p>
+            &copy; 2025 TechieSport. All rights reserved. |
+            <a href="/privacy">Privacy Policy</a> |
+            <a href="/terms">Terms of Service</a>
+          </p>
+    
+          <div class="social-icons">
+            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+    
+          <p class="copyright">
+              Website designed and developed by Dezmils.
+          </p>
+        </div>
+      </footer>
+
+    <script>
+        // JavaScript to fetch and display teams
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            const teamTableBody = document.querySelector('#teamTable tbody');
+            const pageTitle = document.querySelector('.content h1');
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    const sport = this.dataset.sport;
+                    pageTitle.textContent = `${sport.charAt(0).toUpperCase() + sport.slice(1)} Teams`; // Update title
+
+                    // Fetch teams for the selected sport
+                    fetchTeams(sport);
+                });
+            });
+
+            // Function to fetch teams using Fetch API
+            function fetchTeams(sport) {
+                fetch(`get_teams.php?sport=${sport}`) // PHP script to fetch data
+                    .then(response => response.json())
+                    .then(data => {
+                        teamTableBody.innerHTML = ''; // Clear existing data
+
+                        data.forEach(team => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${team.team_name}</td>
+                                <td>${team.league}</td>
+                                <td>${team.coach}</td>
+                                <td><button class="team-button" onclick="goToTeamPage(${team.id})">View Team</button></td>
+                            `;
+                            teamTableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        teamTableBody.innerHTML = '<tr><td colspan="4">Error fetching teams.</td></tr>';
+                    });
+            }
+
+            // Function to redirect to the team page
+            function goToTeamPage(teamId) {
+                window.location.href = `team_page.php?team_id=${teamId}`;
+            }
+
+            // Initially load football teams (or a default sport)
+            fetchTeams('football');
+        });
+
+        function goToTeamPage(teamId) {
+    window.location.href = `team_details.php?team_id=${teamId}`;
+}
+
+    </script>
+
+</body>
+</html>

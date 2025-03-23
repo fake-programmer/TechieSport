@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechieSport--teams</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    .card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Add padding around the grid */
+}
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr; /* Stack cards vertically on smaller screens */
+    }
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    /* Optionally set a minimum height for consistent card size */
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute content vertically */
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+/* Responsive Card Grid */
+@media (max-width: 768px) {
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div>My Website</div>
+    </div>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="/dashboard" class="dashboard-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+              </a></li>
+            <li><a href="#" data-sport="football">Football</a></li>
+            <li><a href="#" data-sport="basketball">Basketball</a></li>
+            <li><a href="#" data-sport="RollBall">RollBall</a></li>
+            <li><a href="#" data-sport="Netball">Netball</a></li> 
+            <li><a href="#" data-sport="Volleyball">Volleyball</a></li>
+            <li><a href="#" data-sport="Tennis">Tennis</a></li>
+            <li><a href="#" data-sport="Badminton">Badminton</a></li>
+            <li><a href="#" data-sport="Hockey">Hockey</a></li> <li>
+            <a href="#" data-sport="Taekwondo">Taekwondo</a></li>
+            <li><a href="#" data-sport="Chess">Chess</a></li>
+
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="card-container">
+            <div class="card1">
+                <h2>Management staffs</h2>
+                <p >get to know our management staff; the head coach, assistant coach and the other key managers</p>
+                <button>view</button>
+            </div>
+
+            <div class="card2">
+                <h2>Matches</h2>
+                <p>view the match schedule and all the games we shall play this semester</p>
+                <button>View</button>
+            </div>
+
+            <div class="card3">
+                <h2>Statistics</h2>
+                <p>This are our statistics, games we have played, upcoming games and our game plan </p>
+                <button>view</button>
+            </div>
+
+            <div class="card4">
+                <h2>Players</h2>
+                <p>This shows all the players of the team </p>
+                <button>Action 4</button>
+            </div>
+
+            <div class="card5">
+                <h2>Information</h2>
+                <p>Access all the team information and description</p>
+                <button>Action 5</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

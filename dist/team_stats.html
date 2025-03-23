@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Statistics</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+    <header>
+        <h1>Team Statistics</h1>
+        <a href="teams_list.html">Back to Team List</a>  <!-- Link back to the main list -->
+    </header>
+
+    <main id="team-stats-container">
+        <div id="team-profile">
+            <h2 id="team-name">Team Name (Loading...)</h2>
+            <img id="team-logo" src="" alt="Team Logo (Loading...)">
+            <p id="team-league">League: (Loading...)</p>
+            <p id="team-coach">Coach: (Loading...)</p>
+        </div>
+
+        <section id="team-stats">
+            <h2>Statistics</h2>
+            <table id="stats-table">
+                <thead>
+                    <tr>
+                        <th>Statistic</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Statistics will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="team-roster">
+            <h2>Team Roster</h2>
+            <ul id="roster-list">
+                <!-- Roster members will be dynamically inserted here -->
+            </ul>
+        </section>
+
+        <section id="team-achievements">
+          <h2>Achievements</h2>
+          <ul id="achievement-list">
+              <!-- Achievements will be dynamically inserted here -->
+          </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; [Your Website Name] 2023</p>
+    </footer>
+
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>

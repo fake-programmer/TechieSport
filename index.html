@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication Example (Sessions)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #app {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #dashboard-container {
+            text-align: left;
+        }
+
+        #logout-button {
+            margin-top: 20px;
+            background-color: #dc3545;
+        }
+
+        #logout-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <div id="app">
+        <!-- Content will be dynamically loaded here by JavaScript -->
+    </div>
+
+    <script >
+
+        
+const appDiv = document.getElementById('app');
+
+// Function to check session status with server
+async function checkSessionStatus() {
+    try {
+        const response = await fetch('session_check.php');
+        const result = await response.json();
+        return result.loggedIn; //Returns true / false based on JSON value
+    } catch (error) {
+        console.error('Error checking session:', error);
+        return false; // Default return false if error
+    }
+}
+
+// Function to render the login form
+function renderLoginForm() {
+    appDiv.innerHTML = `
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="register-link">Register</a></p>
+    `;
+
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Session created server side, render dashboard
+                renderDashboard();
+            } else {
+                alert('Login failed: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during login.');
+        }
+    });
+
+    // Attach register event listener
+    document.getElementById('register-link').addEventListener('click', (event) => {
+        event.preventDefault();
+        renderRegistrationForm();
+    });
+}
+
+// Function to render the registration form
+function renderRegistrationForm() {
+    appDiv.innerHTML = `
+        <h2>Register</h2>
+        <form id="register-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+    `;
+
+    document.getElementById('register-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('register.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Registration successful! Please login.');
+                renderLoginForm();
+            } else {
+                alert('Registration failed: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration.');
+        }
+    });
+    document.getElementById('login-link').addEventListener('click', (event) => {
+            event.preventDefault();
+            renderLoginForm();
+        });
+}
+
+// Function to render the dashboard (protected content)
+async function renderDashboard() {
+    try {
+        const response = await fetch('protected.php', {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            appDiv.innerHTML = `
+                <div id="dashboard-container">
+                    <div id="user-id-display">User ID: ${result.user_id}</div>
+                    <h2>Welcome, ${result.username}!</h2>
+                    <!-- Add your styled page content here -->
+                     <div class="card"> 
+                        
+                        </div>
+                    <button id="logout-button">Logout</button>
+                </div>
+            `;
+
+            document.getElementById('logout-button').addEventListener('click', async () => {
+                try {
+                    const response = await fetch('logout.php');
+                    const result = await response.json();
+                    if (result.success) {
+                        renderLoginForm();
+                    } else {
+                        alert('Logout failed: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred during logout.');
+                }
+            });
+        } else {
+            alert('Failed to load dashboard: ' + result.message);
+            renderLoginForm(); // Go to login form
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while loading the dashboard.');
+        renderLoginForm(); // Go to login form
+    }
+}
+
+// Initial render - checks if the user is already logged in via PHP sessions
+(async function() {
+    const loggedIn = await checkSessionStatus();
+    if (loggedIn) {
+        renderDashboard();
+    } else {
+        appDiv.innerHTML = '<button id="register-button">Register</button> or <button id="login-button">Login</button>';
+        document.getElementById('register-button').addEventListener('click', renderRegistrationForm);
+        document.getElementById('login-button').addEventListener('click', renderLoginForm);
+    }
+})();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Events</title>
+    <link rel="stylesheet" href="style.css">  <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .cardd {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            padding-left: 5%;
+            margin: 16px;
+            box-shadow: 2px 2px 12px #aaa;
+            background: #fff;
+        }
+        .cardm {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            padding-left: 10%;
+            margin: 16px;
+            box-shadow: 2px 2px 12px #aaa;
+            background: #ecfaea;
+        }
+        footer {
+  background-color: #d8ffe0 ; /* Dark background color */
+  color: var(--primary); /* Light text color */
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5; 
+}
+
+footer a {
+  color: var(--primary); /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Style for the container */
+.footer-container {
+  max-width: 960px; /* Match the width of your main content */
+  margin: 0 auto; /* Center the footer content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally within the container */
+}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="ndex1.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="football.html"><i class="fas fa-users"></i> Explore Teams</a></li>
+            <li><a href="admin.html"><i class="fas fa-users-cog"></i>  Admin</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="navbar">
+        <div>TechieSport</div>
+        <a href="ndex1.html"><i class="fas fa-dashboard"></i> Dashboard</a>
+        
+    </div>
+    <div class="cardm">
+        
+        <h1 style="text-align: center;">Events</h1>
+        <button onclick="history.back()" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-arrow-left"></i> Back</button>
+        <div id="events-container"></div>
+    
+
+    </div>
+    <footer>
+        <div class="footer-container">
+          <p>
+            &copy; 2025 TechieSport. All rights reserved. |
+            <a href="/privacy">Privacy Policy</a> |
+            <a href="/terms">Terms of Service</a>
+          </p>
+    
+          <div class="social-icons">
+            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+    
+          <p class="copyright">
+              Website designed and developed by Dezmils.
+          </p>
+        </div>
+      </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('fetch_events.php')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('events-container');
+                    data.forEach(event => {
+                        const card = document.createElement('div');
+                        card.className = 'cardd';
+                        card.innerHTML = `
+                            <h2> ${event.event_type}</h2>
+                            <p><strong>Sport:</strong> ${event.sport}</p>
+                            <p><strong>Team:</strong> ${event.team}</p>
+                            <p><strong>Facility:</strong> ${event.facility}</p>
+                            <p><strong>Date:</strong> ${event.date}</p>
+                            <p><strong>Time:</strong> ${event.time}</p>
+                            <p><strong>Description:</strong> ${event.description}</p>
+                        `;
+                        container.appendChild(card);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
